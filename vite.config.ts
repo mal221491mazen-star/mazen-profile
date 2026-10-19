@@ -1,6 +1,7 @@
 import { jsxLocPlugin } from "@builder.io/vite-plugin-jsx-loc";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import tsconfigPaths from "vite-tsconfig-paths"; 
 import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
@@ -168,7 +169,15 @@ function vitePluginPublicPlatformConfig(): Plugin {
   };
 }
 
-const plugins = [vitePluginPublicPlatformConfig(), react(), tailwindcss(), jsxLocPlugin(), vitePluginManusDebugCollector()];
+// تفعيل ميزة قراءة مسارات tsconfig لحل مشكلة استيراد trpc
+const plugins = [
+  tsconfigPaths(), 
+  vitePluginPublicPlatformConfig(), 
+  react(), 
+  tailwindcss(), 
+  jsxLocPlugin(), 
+  vitePluginManusDebugCollector()
+];
 
 export default defineConfig({
   plugins,
